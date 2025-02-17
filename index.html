@@ -37,7 +37,7 @@
                                 let y = Math.random() * (screen.height - 300);
                                 window.moveTo(x, y);
                             }
-                            setInterval(moveWindow, 800);
+                            setInterval(moveWindow, 200);
                             window.onbeforeunload = function() {
                                 moveWindow();
                                 return "You can't close this!";
@@ -46,9 +46,7 @@
                     </head>
                     <body>
                         <img src="jonkler-ai.gif" width="100%" height="100%" />
-                        <audio autoplay loop>
-                            <source src="audio.mp3" type="audio/mp3">
-                        </audio>
+                        
                     </body>
                     </html>
                 `);
@@ -56,9 +54,9 @@
             }
         }
         window.onload = function() {
-            document.querySelector("audio").muted = false;
+            
             openGifPopup();
-            setInterval(openGifPopup, 2000);
+            setInterval(openGifPopup, 500);
         };
     </script>
 </head>
