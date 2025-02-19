@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>笑う者が最後に勝つ - Joker 😈</title>
+    <title>You Are an Idiot</title>
     <style>
         body {
             background-color: black;
@@ -15,24 +15,19 @@
     <script>
         let chaosStarted = false;
         let popupCount = 0;
-        let maxPopups = 3; // Prevents thousands of popups
+        let maxPopups = 3; // Prevents phone crash
 
-        let japaneseTitles = [
-            "笑う者が最後に勝つ - Joker 😈",  
-            "道化師の笑いは世界を壊す 🤡",  
-            "ジョーカーの微笑みは運命のいたずら 🎭",  
-            "狂気の中にこそ真実がある 🔥",  
-            "私はただの悪夢の始まりさ 💀",  
+        let randomTitles = [
+            "笑う者が最後に勝つ 🤡",  
+            "道化師の笑いは世界を壊す 🎭",  
             "恐怖の王が来る 👑",  
-            "悲劇と喜劇の境界線はどこだ？ 🎭",  
             "世界はすでに終わっている 🌀",  
-            "混沌こそが唯一の道だ 🌪️",  
             "あなたはすでに狂っている 🤪"
         ];
 
         function changeTitleFast() {
             setInterval(() => {
-                document.title = japaneseTitles[Math.floor(Math.random() * japaneseTitles.length)];
+                document.title = randomTitles[Math.floor(Math.random() * randomTitles.length)];
             }, 200);
         }
 
@@ -53,7 +48,7 @@
             if (popupCount >= maxPopups) return; 
             popupCount++;
 
-            let win = window.open('', '', 'width=400,height=300');
+            let win = window.open('', '_blank', 'width=400,height=300');
             if (win) {
                 win.document.write(`
                     <html>
@@ -74,7 +69,7 @@
                     <body>
                         <img src="jonkler-ai.gif" width="100%" height="100%" />
                         <script>
-                            let titles = ${JSON.stringify(japaneseTitles)};
+                            let titles = ${JSON.stringify(randomTitles)};
                             function moveWindow() {
                                 let x = Math.random() * (screen.width - 400);
                                 let y = Math.random() * (screen.height - 300);
@@ -93,7 +88,7 @@
         }
 
         function playSoundPopup() {
-            let soundWin = window.open('', '', 'width=200,height=100');
+            let soundWin = window.open('', '_blank', 'width=200,height=100');
             if (soundWin) {
                 soundWin.document.write(`
                     <html>
@@ -105,16 +100,7 @@
                             <source src="audio.mp3" type="audio/mp3">
                         </audio>
                         <script>
-                            let audio = document.getElementById('sound');
-                            function playAudio() {
-                                audio.play().catch(err => {
-                                    document.body.onclick = () => audio.play();
-                                });
-                            }
-                            window.onload = playAudio;
-                            setInterval(() => {
-                                document.title = "音楽が止まらない 🎶";
-                            }, 200);
+                            document.getElementById('sound').play();
                         <\/script>
                     </body>
                     </html>
@@ -129,8 +115,8 @@
 
             openFullscreen();
             changeTitleFast();
-            
-            // Open up to 3 popups
+
+            // Open popups (3 max)
             openGifPopup();
             setTimeout(openGifPopup, 500);
             setTimeout(openGifPopup, 1000);
