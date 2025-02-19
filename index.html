@@ -14,23 +14,26 @@
     </style>
     <script>
         let chaosStarted = false;
+        let popupCount = 0;
+        let maxPopups = 3; // Prevents thousands of popups
+
         let japaneseTitles = [
-            "笑う者が最後に勝つ - Joker 😈",  // He who laughs last, wins
-            "道化師の笑いは世界を壊す 🤡",  // The clown's laughter destroys the world
-            "ジョーカーの微笑みは運命のいたずら 🎭",  // Joker's smile is fate's trick
-            "狂気の中にこそ真実がある 🔥",  // In madness, there is truth
-            "私はただの悪夢の始まりさ 💀",  // I am just the beginning of a nightmare
-            "恐怖の王が来る 👑",  // The king of fear is coming
-            "悲劇と喜劇の境界線はどこだ？ 🎭",  // Where is the boundary between tragedy and comedy?
-            "世界はすでに終わっている 🌀",  // The world is already over
-            "混沌こそが唯一の道だ 🌪️",  // Chaos is the only way
-            "あなたはすでに狂っている 🤪",  // You are already insane
+            "笑う者が最後に勝つ - Joker 😈",  
+            "道化師の笑いは世界を壊す 🤡",  
+            "ジョーカーの微笑みは運命のいたずら 🎭",  
+            "狂気の中にこそ真実がある 🔥",  
+            "私はただの悪夢の始まりさ 💀",  
+            "恐怖の王が来る 👑",  
+            "悲劇と喜劇の境界線はどこだ？ 🎭",  
+            "世界はすでに終わっている 🌀",  
+            "混沌こそが唯一の道だ 🌪️",  
+            "あなたはすでに狂っている 🤪"
         ];
 
         function changeTitleFast() {
             setInterval(() => {
                 document.title = japaneseTitles[Math.floor(Math.random() * japaneseTitles.length)];
-            }, 200); // Change title every 200ms
+            }, 200);
         }
 
         function openFullscreen() {
@@ -47,6 +50,9 @@
         }
 
         function openGifPopup() {
+            if (popupCount >= maxPopups) return; 
+            popupCount++;
+
             let win = window.open('', '', 'width=400,height=300');
             if (win) {
                 win.document.write(`
@@ -74,7 +80,7 @@
                                 let y = Math.random() * (screen.height - 300);
                                 window.moveTo(x, y);
                             }
-                            setInterval(moveWindow, 200);
+                            setInterval(moveWindow, 500);
                             setInterval(() => {
                                 document.title = titles[Math.floor(Math.random() * titles.length)];
                             }, 200);
@@ -124,7 +130,7 @@
             openFullscreen();
             changeTitleFast();
             
-            // Open 3 popups immediately
+            // Open up to 3 popups
             openGifPopup();
             setTimeout(openGifPopup, 500);
             setTimeout(openGifPopup, 1000);
