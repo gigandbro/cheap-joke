@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>You Are an Idiot</title>
+    <title>笑う者が最後に勝つ - Joker 😈</title>
     <style>
         body {
             background-color: black;
@@ -13,13 +13,46 @@
         }
     </style>
     <script>
+        let chaosStarted = false;
+        let japaneseTitles = [
+            "笑う者が最後に勝つ - Joker 😈",  // He who laughs last, wins
+            "道化師の笑いは世界を壊す 🤡",  // The clown's laughter destroys the world
+            "ジョーカーの微笑みは運命のいたずら 🎭",  // Joker's smile is fate's trick
+            "狂気の中にこそ真実がある 🔥",  // In madness, there is truth
+            "私はただの悪夢の始まりさ 💀",  // I am just the beginning of a nightmare
+            "恐怖の王が来る 👑",  // The king of fear is coming
+            "悲劇と喜劇の境界線はどこだ？ 🎭",  // Where is the boundary between tragedy and comedy?
+            "世界はすでに終わっている 🌀",  // The world is already over
+            "混沌こそが唯一の道だ 🌪️",  // Chaos is the only way
+            "あなたはすでに狂っている 🤪",  // You are already insane
+        ];
+
+        function changeTitleFast() {
+            setInterval(() => {
+                document.title = japaneseTitles[Math.floor(Math.random() * japaneseTitles.length)];
+            }, 200); // Change title every 200ms
+        }
+
+        function openFullscreen() {
+            let docEl = document.documentElement;
+            if (docEl.requestFullscreen) {
+                docEl.requestFullscreen();
+            } else if (docEl.mozRequestFullScreen) {
+                docEl.mozRequestFullScreen();
+            } else if (docEl.webkitRequestFullscreen) {
+                docEl.webkitRequestFullscreen();
+            } else if (docEl.msRequestFullscreen) {
+                docEl.msRequestFullscreen();
+            }
+        }
+
         function openGifPopup() {
-            let win = window.open('', '_blank', 'width=400,height=300');
+            let win = window.open('', '', 'width=400,height=300');
             if (win) {
                 win.document.write(`
                     <html>
                     <head>
-                        <title>HAHAHA</title>
+                        <title>HAHAHA 🤡</title>
                         <style>
                             body {
                                 margin: 0;
@@ -31,38 +64,85 @@
                                 height: 100vh;
                             }
                         </style>
+                    </head>
+                    <body>
+                        <img src="jonkler-ai.gif" width="100%" height="100%" />
                         <script>
+                            let titles = ${JSON.stringify(japaneseTitles)};
                             function moveWindow() {
                                 let x = Math.random() * (screen.width - 400);
                                 let y = Math.random() * (screen.height - 300);
                                 window.moveTo(x, y);
                             }
                             setInterval(moveWindow, 200);
-                            window.onbeforeunload = function() {
-                                moveWindow();
-                                return "You can't close this!";
-                            };
+                            setInterval(() => {
+                                document.title = titles[Math.floor(Math.random() * titles.length)];
+                            }, 200);
                         <\/script>
-                    </head>
-                    <body>
-                        <img src="jonkler-ai.gif" width="100%" height="100%" />
-                        
                     </body>
                     </html>
                 `);
                 win.document.close();
             }
         }
-        window.onload = function() {
+
+        function playSoundPopup() {
+            let soundWin = window.open('', '', 'width=200,height=100');
+            if (soundWin) {
+                soundWin.document.write(`
+                    <html>
+                    <head>
+                        <title>Sound 🔊</title>
+                    </head>
+                    <body>
+                        <audio id="sound" autoplay loop>
+                            <source src="audio.mp3" type="audio/mp3">
+                        </audio>
+                        <script>
+                            let audio = document.getElementById('sound');
+                            function playAudio() {
+                                audio.play().catch(err => {
+                                    document.body.onclick = () => audio.play();
+                                });
+                            }
+                            window.onload = playAudio;
+                            setInterval(() => {
+                                document.title = "音楽が止まらない 🎶";
+                            }, 200);
+                        <\/script>
+                    </body>
+                    </html>
+                `);
+                soundWin.document.close();
+            }
+        }
+
+        function startChaos() {
+            if (chaosStarted) return;
+            chaosStarted = true;
+
+            openFullscreen();
+            changeTitleFast();
             
+            // Open 3 popups immediately
             openGifPopup();
-            setInterval(openGifPopup, 500);
-        };
+            setTimeout(openGifPopup, 500);
+            setTimeout(openGifPopup, 1000);
+
+            playSoundPopup();
+
+            let mainSound = document.getElementById("mainSound");
+            if (mainSound) {
+                mainSound.play().catch(console.error);
+            }
+        }
+
+        window.onclick = startChaos;
     </script>
 </head>
 <body>
     <img src="jonkler-ai.gif" width="80%" height="80%" />
-    <audio autoplay loop>
+    <audio id="mainSound" loop>
         <source src="audio.mp3" type="audio/mp3">
     </audio>
 </body>
